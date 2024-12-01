@@ -3,7 +3,7 @@ export default {
 		const { pathname } = new URL(request.url);
 
 		if (!pathname || pathname === '/') {
-			return Response.redirect('https://github.com/prompt/avatars.dog', 307);
+			return Response.redirect(env.README_REDIRECT, 307);
 		}
 
 		const [actor, format] = pathname.toLowerCase().slice(1).split('@');
@@ -11,7 +11,7 @@ export default {
 		let avatar = await env.avatars.get(actor);
 
 		if (!avatar) {
-			let avatar = await fetch(`${env.BLUESKY_GET_PROFILE}?actor=${actor}`, { method: 'GET' })
+			avatar = await fetch(`${env.BLUESKY_GET_PROFILE}?actor=${actor}`, { method: 'GET' })
 				.then<{ avatar: string }>((response) => response.json())
 				.then<string>((profile) => profile.avatar || '404');
 
@@ -20,7 +20,7 @@ export default {
 			});
 		}
 
-		if (!avatar || !avatar.startsWith('https://cdn.bsky.app/img/avatar')) {
+		if (!avatar || !avatar.startsWith(`${env.BLUESKY_CDN}/img/avatar`)) {
 			return new Response(`Avatar not found for ${actor}.`, { status: 404 });
 		}
 
