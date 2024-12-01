@@ -1,0 +1,17 @@
+#:schema node_modules/wrangler/config-schema.json
+compatibility_date = "2024-11-27"
+compatibility_flags = ["nodejs_compat"]
+main = "src/index.ts"
+name = "avatars-dog"
+
+[observability]
+enabled = true
+
+[[kv_namespaces]]
+binding = "avatars"
+id = "77bab70fe5cf495ea02dcc372bf6d124"
+
+[vars]
+BLUESKY_CDN = "https://cdn.bsky.app"
+BLUESKY_GET_PROFILE = "https://public.api.bsky.app/xrpc/app.bsky.actor.getProfile"
+CACHE_EXPIRY_TTL = 300
