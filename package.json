@@ -5,7 +5,8 @@
 		"dev": "wrangler dev",
 		"start": "wrangler dev",
 		"test": "vitest",
-		"cf-typegen": "wrangler types worker-configuration.d.ts"
+		"cf-typegen": "wrangler types worker-configuration.d.ts",
+		"fmt": "npx prettier . --write"
 	},
 	"devDependencies": {
 		"@cloudflare/vitest-pool-workers": "^0.5.2",
