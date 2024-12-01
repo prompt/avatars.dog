@@ -3,6 +3,10 @@
 Fetch Bluesky avatars with a single URL. Powered by Cloudflare Workers.
 Built for [handles.net](https://handles.net).
 
+```
+https://avatars.dog/[handle or did]
+```
+
 ## Usage
 
 ```
@@ -29,10 +33,7 @@ https://avatars.dog/did:plc:z72i7hdynmk6r22z27h6tvur
 
 ## Examples
 
-<img src="https://avatars.dog/bsky.app" width="96">
-<img src="https://avatars.dog/nytimes.com" width="96">
-<img src="https://avatars.dog/handles.net" width="96">
-<img src="https://avatars.dog/shr.ink" width="96">
+<img src="https://avatars.dog/bsky.app" width="96"> <img src="https://avatars.dog/nytimes.com" width="96"> <img src="https://avatars.dog/handles.net" width="96"> <img src="https://avatars.dog/shr.ink" width="96">
 
 ## Name
 
