@@ -1,4 +1,4 @@
-# Avatars Dog
+# 🐶 Avatars Dog
 
 Fetch Bluesky avatars with a single URL. Powered by Cloudflare Workers.
 Built for [handles.net](https://handles.net).
