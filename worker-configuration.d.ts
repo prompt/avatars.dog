@@ -2,7 +2,8 @@
 
 interface Env {
 	avatars: KVNamespace;
-	BLUESKY_CDN: 'https://cdn.bsky.app';
-	BLUESKY_GET_PROFILE: 'https://public.api.bsky.app/xrpc/app.bsky.actor.getProfile';
+	BLUESKY_CDN: "https://cdn.bsky.app";
+	BLUESKY_GET_PROFILE: "https://public.api.bsky.app/xrpc/app.bsky.actor.getProfile";
 	CACHE_EXPIRY_TTL: 300;
+	README_REDIRECT: "https://github.com/prompt/avatars.dog";
 }
