@@ -17,6 +17,7 @@ describe('Bluesky Avatar fetcher', () => {
 		await waitOnExecutionContext(ctx);
 
 		expect(response.headers.get('Location')).toBe(`https://cdn.bsky.app/img/avatar/example.png`);
+		expect(response.headers.get('Cache-Control')).toBe(`s-maxage=300, max-age=31536000, stale-while-revalidate=31536000`);
 	});
 
 	it('Redirects index to documentation URL', async () => {
