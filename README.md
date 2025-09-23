@@ -38,3 +38,12 @@ https://avatars.dog/did:plc:z72i7hdynmk6r22z27h6tvur
 ## Name
 
 The service fetches avatars. Dogs fetch.
+
+## Development
+
+Using the [wrangler cli](https://developers.cloudflare.com/workers/wrangler/commands/#how-to-run-wrangler-commands) start a `dev` environment.
+
+```console
+npm install
+npx wrangler dev
+```
