@@ -24,12 +24,10 @@ export default {
 			return new Response(`Avatar not found for ${actor}.`, { status: 404 });
 		}
 
-		const redirectUrl = format ? avatar.replace(/@([a-z]+)$/, `@${format}`) : avatar;
-
 		return new Response(null, {
 			status: 307,
 			headers: {
-				Location: redirectUrl,
+				Location: format ? avatar.replace(/@([a-z]+)$/, `@${format}`) : avatar,
 				'Cache-Control': `s-maxage=${expirationTtl}, max-age=31536000, stale-while-revalidate=31536000`,
 			},
 		});
