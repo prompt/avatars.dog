@@ -9,10 +9,9 @@
 		"fmt": "npx prettier . --write"
 	},
 	"devDependencies": {
-		"@cloudflare/vitest-pool-workers": "^0.5.2",
-		"@cloudflare/workers-types": "^4.20241127.0",
+		"@cloudflare/vitest-pool-workers": "^0.5.41",
 		"typescript": "^5.5.2",
 		"vitest": "2.0.5",
-		"wrangler": "^3.60.3"
+		"wrangler": "^4.38.0"
 	}
 }

@@ -10,20 +10,26 @@ export default {
 
 		let avatar = await env.avatars.get(actor);
 
+		const expirationTtl = Number(env.CACHE_EXPIRY_TTL);
+
 		if (!avatar) {
 			avatar = await fetch(`${env.BLUESKY_GET_PROFILE}?actor=${actor}`, { method: 'GET' })
 				.then<{ avatar: string }>((response) => response.json())
 				.then<string>((profile) => profile.avatar || '404');
 
-			await env.avatars.put(actor, avatar, {
-				expirationTtl: parseInt(env.CACHE_EXPIRY_TTL || 3600),
-			});
+			await env.avatars.put(actor, avatar, { expirationTtl });
 		}
 
 		if (!avatar || !avatar.startsWith(`${env.BLUESKY_CDN}/img/avatar`)) {
 			return new Response(`Avatar not found for ${actor}.`, { status: 404 });
 		}
 
-		return Response.redirect(format ? avatar.replace(/@([a-z]+)$/, `@${format}`) : avatar, 307);
+		return new Response(null, {
+			status: 307,
+			headers: {
+				Location: format ? avatar.replace(/@([a-z]+)$/, `@${format}`) : avatar,
+				'Cache-Control': `s-maxage=${expirationTtl}, max-age=31536000, stale-while-revalidate=31536000`,
+			},
+		});
 	},
 };
