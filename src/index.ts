@@ -10,7 +10,7 @@ export default {
 
 		let avatar = await env.avatars.get(actor);
 
-		const expirationTtl = env.CACHE_EXPIRY_TTL;
+		const expirationTtl = Number(env.CACHE_EXPIRY_TTL);
 
 		if (!avatar) {
 			avatar = await fetch(`${env.BLUESKY_GET_PROFILE}?actor=${actor}`, { method: 'GET' })
