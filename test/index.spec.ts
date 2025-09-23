@@ -16,6 +16,11 @@ describe('Bluesky Avatar fetcher', () => {
 
 	afterEach(() => fetchMock.assertNoPendingInterceptors());
 
+	it('Redirects index to documentation URL', async () => {
+		const response = await worker.fetch(new IncomingRequest('http://example.com'), env);
+		expect(response.headers.get('Location')).toBe(`https://github.com/prompt/avatars.dog`);
+	});
+
 	it('Adds avatar URL to key value store when cache is empty', async () => {
 		const actor = 'uncached.example';
 
@@ -49,8 +54,18 @@ describe('Bluesky Avatar fetcher', () => {
 		expect(response.headers.get('Location')).toBe(`https://cdn.bsky.app/img/avatar/example@png`);
 	});
 
-	it('Redirects index to documentation URL', async () => {
-		const response = await worker.fetch(new IncomingRequest('http://example.com'), env);
-		expect(response.headers.get('Location')).toBe(`https://github.com/prompt/avatars.dog`);
+	it('Caches not found handle responses', async () => {
+		const actor = 'unregistered.handle';
+
+		fetchMock
+			.get('https://public.api.bsky.app')
+			.intercept({ method: 'GET', path: '/xrpc/app.bsky.actor.getProfile', query: { actor } })
+			.reply(400, JSON.stringify({ error: 'Invalid Request', message: 'Profile not found' }));
+
+		const response = await worker.fetch(new IncomingRequest(`https://example.com/${actor}`), env);
+
+		expect(await env.avatars.get(actor)).toBe('not-found');
+		expect(response.status).toBe(404);
+		expect(response.headers.get('Cache-Control')).toBe(`s-maxage=300, max-age=31536000, stale-while-revalidate=31536000`);
 	});
 });
